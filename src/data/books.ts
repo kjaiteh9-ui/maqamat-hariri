@@ -28,6 +28,8 @@ export interface Book {
   chapters: Chapter[];
 }
 
+import { quranChapters } from "./quran";
+
 export const books: Book[] = [
   {
     id: "maqamat",
@@ -255,17 +257,11 @@ export const books: Book[] = [
     id: "quran",
     title: "القرآن الكريم",
     author: "كلام الله تعالى",
-    description: "تفسير وإعراب وبلاغة آيات القرآن الكريم",
+    description: "تفسير وإعراب وبلاغة آيات القرآن الكريم — آية بآية",
     type: "quran",
     color: "#00695c",
     icon: "📗",
-    chapters: [
-      { id: 1, title: "سورة الفاتحة", sentences: [] },
-      { id: 2, title: "سورة البقرة", sentences: [] },
-      { id: 3, title: "سورة آل عمران", sentences: [] },
-      { id: 4, title: "سورة النساء", sentences: [] },
-      { id: 5, title: "سورة المائدة", sentences: [] },
-    ],
+    chapters: quranChapters,
   },
   {
     id: "masalik-jinan",
