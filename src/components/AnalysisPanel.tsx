@@ -39,6 +39,7 @@ interface AnalysisPanelProps {
   loading: boolean;
   error: string | null;
   sentence: string;
+  accentColor?: string;
 }
 
 type TabKey = "meaning" | "irab" | "sarf" | "balagha" | "context" | "vocabulary";
@@ -57,6 +58,7 @@ export default function AnalysisPanel({
   loading,
   error,
   sentence,
+  accentColor = "#c8a84e",
 }: AnalysisPanelProps) {
   const [activeTab, setActiveTab] = useState<TabKey>("meaning");
 
@@ -77,20 +79,29 @@ export default function AnalysisPanel({
   if (loading) {
     return (
       <div className="space-y-6 p-2">
-        <div className="bg-[var(--color-gold)]/10 rounded-xl p-6 border border-[var(--color-gold)]/30">
+        <div
+          className="rounded-xl p-6 border"
+          style={{
+            backgroundColor: `${accentColor}15`,
+            borderColor: `${accentColor}40`,
+          }}
+        >
           <p className="text-lg leading-loose text-center font-bold">
             {sentence}
           </p>
         </div>
         <div className="flex items-center justify-center gap-3 py-8">
-          <div className="w-3 h-3 bg-[var(--color-gold)] rounded-full animate-bounce" />
           <div
-            className="w-3 h-3 bg-[var(--color-gold)] rounded-full animate-bounce"
-            style={{ animationDelay: "0.15s" }}
+            className="w-3 h-3 rounded-full animate-bounce"
+            style={{ backgroundColor: accentColor }}
           />
           <div
-            className="w-3 h-3 bg-[var(--color-gold)] rounded-full animate-bounce"
-            style={{ animationDelay: "0.3s" }}
+            className="w-3 h-3 rounded-full animate-bounce"
+            style={{ backgroundColor: accentColor, animationDelay: "0.15s" }}
+          />
+          <div
+            className="w-3 h-3 rounded-full animate-bounce"
+            style={{ backgroundColor: accentColor, animationDelay: "0.3s" }}
           />
         </div>
         <p className="text-center text-[var(--color-ink-light)]/60">
@@ -124,7 +135,13 @@ export default function AnalysisPanel({
   return (
     <div className="space-y-4 animate-fade-in">
       {/* Selected sentence */}
-      <div className="bg-[var(--color-gold)]/10 rounded-xl p-5 border border-[var(--color-gold)]/30">
+      <div
+        className="rounded-xl p-5 border"
+        style={{
+          backgroundColor: `${accentColor}15`,
+          borderColor: `${accentColor}40`,
+        }}
+      >
         <p className="text-xl leading-loose text-center font-bold text-[var(--color-ink)]">
           {sentence}
         </p>
@@ -136,12 +153,19 @@ export default function AnalysisPanel({
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer
-              ${
-                activeTab === tab.key
-                  ? "bg-[var(--color-gold)] text-white shadow-md"
-                  : "bg-white/80 text-[var(--color-ink-light)] hover:bg-[var(--color-gold-light)] hover:text-white"
-              }`}
+            className="px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer"
+            style={
+              activeTab === tab.key
+                ? {
+                    backgroundColor: accentColor,
+                    color: "white",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                  }
+                : {
+                    backgroundColor: "rgba(255,255,255,0.8)",
+                    color: "var(--color-ink-light)",
+                  }
+            }
           >
             {tab.icon} {tab.label}
           </button>
@@ -152,7 +176,10 @@ export default function AnalysisPanel({
       <div className="bg-white/80 rounded-xl p-5 border border-[var(--color-parchment-dark)] min-h-[300px] animate-slide-in">
         {activeTab === "meaning" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-[var(--color-gold-dark)] border-b border-[var(--color-gold)]/30 pb-2">
+            <h3
+              className="text-lg font-bold border-b pb-2"
+              style={{ color: accentColor, borderColor: `${accentColor}40` }}
+            >
               📖 شرح المعنى
             </h3>
             <p className="text-lg leading-relaxed">{analysis.meaning}</p>
@@ -161,7 +188,10 @@ export default function AnalysisPanel({
 
         {activeTab === "irab" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-[var(--color-gold-dark)] border-b border-[var(--color-gold)]/30 pb-2">
+            <h3
+              className="text-lg font-bold border-b pb-2"
+              style={{ color: accentColor, borderColor: `${accentColor}40` }}
+            >
               ✏️ الإعراب التفصيلي
             </h3>
             <div className="space-y-3">
@@ -185,7 +215,10 @@ export default function AnalysisPanel({
 
         {activeTab === "sarf" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-[var(--color-gold-dark)] border-b border-[var(--color-gold)]/30 pb-2">
+            <h3
+              className="text-lg font-bold border-b pb-2"
+              style={{ color: accentColor, borderColor: `${accentColor}40` }}
+            >
               🔤 التحليل الصرفي
             </h3>
             <div className="space-y-3">
@@ -199,7 +232,10 @@ export default function AnalysisPanel({
                     <span className="font-bold text-[var(--color-accent)] text-lg">
                       {item.word}
                     </span>
-                    <span className="bg-[var(--color-gold)]/20 text-[var(--color-gold-dark)] px-3 py-1 rounded-full text-sm font-bold">
+                    <span
+                      className="px-3 py-1 rounded-full text-sm font-bold text-white"
+                      style={{ backgroundColor: `${accentColor}cc` }}
+                    >
                       {item.type}
                     </span>
                   </div>
@@ -230,7 +266,10 @@ export default function AnalysisPanel({
 
         {activeTab === "balagha" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-[var(--color-gold-dark)] border-b border-[var(--color-gold)]/30 pb-2">
+            <h3
+              className="text-lg font-bold border-b pb-2"
+              style={{ color: accentColor, borderColor: `${accentColor}40` }}
+            >
               🎨 التحليل البلاغي
             </h3>
             {analysis.balagha?.length > 0 ? (
@@ -238,8 +277,11 @@ export default function AnalysisPanel({
                 {analysis.balagha.map((item, i) => (
                   <div
                     key={i}
-                    className="p-4 rounded-lg bg-[var(--color-parchment)]/80 border-r-4 border-[var(--color-gold)] animate-slide-in"
-                    style={{ animationDelay: `${i * 0.05}s` }}
+                    className="p-4 rounded-lg bg-[var(--color-parchment)]/80 border-r-4 animate-slide-in"
+                    style={{
+                      borderColor: accentColor,
+                      animationDelay: `${i * 0.05}s`,
+                    }}
                   >
                     <p className="font-bold text-[var(--color-accent)] mb-1">
                       {item.device}
@@ -260,7 +302,10 @@ export default function AnalysisPanel({
 
         {activeTab === "vocabulary" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-[var(--color-gold-dark)] border-b border-[var(--color-gold)]/30 pb-2">
+            <h3
+              className="text-lg font-bold border-b pb-2"
+              style={{ color: accentColor, borderColor: `${accentColor}40` }}
+            >
               📚 المفردات
             </h3>
             {analysis.vocabulary?.length > 0 ? (
@@ -290,8 +335,11 @@ export default function AnalysisPanel({
 
         {activeTab === "context" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-[var(--color-gold-dark)] border-b border-[var(--color-gold)]/30 pb-2">
-              🔗 السياق القصصي
+            <h3
+              className="text-lg font-bold border-b pb-2"
+              style={{ color: accentColor, borderColor: `${accentColor}40` }}
+            >
+              🔗 السياق
             </h3>
             <p className="text-lg leading-relaxed">{analysis.context}</p>
           </div>
